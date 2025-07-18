@@ -18,6 +18,7 @@ public class FileContentGeneratorImplTest {
     @BeforeEach
     void testUp() {
         fileContentGenerator = new FileContentGeneratorImpl();
+        Storage.STORAGE.clear();
     }
 
     @Test
