@@ -20,7 +20,7 @@ public class FileReaderServiceImplTest {
     @BeforeEach
     void setUp() throws IOException {
         fileReaderService = new FileReaderServiceImpl();
-        tempFile = Path.of("input.csv");
+        tempFile = Path.of("src/test/resourcestest/input.csv");
         Files.write(tempFile, List.of("b,apple,10", "s,banana,5"));
     }
 

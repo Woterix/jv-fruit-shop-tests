@@ -20,7 +20,7 @@ public class FileWriterServiceImplTest {
     @BeforeEach
     void setUp() throws IOException {
         fileWriterService = new FileWriterServiceImpl();
-        path = Path.of("src/test/resourcesTest/output.csv");
+        path = Path.of("src/test/resourcestest/output.csv");
         content = "abc" + "\n" + "efg";
     }
 
