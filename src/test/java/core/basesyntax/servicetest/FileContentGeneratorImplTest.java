@@ -25,7 +25,7 @@ public class FileContentGeneratorImplTest {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             fileContentGenerator.contentGen();
         });
-        assertTrue(exception.getMessage().contains("Storage is empty"));
+        assertTrue(exception.getMessage().contains("Storage is empty, can`t generate content"));
     }
 
     @Test

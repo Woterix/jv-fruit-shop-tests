@@ -11,7 +11,7 @@ public class FileContentGeneratorImpl implements FileContentGenerator {
     @Override
     public String contentGen() {
         if (Storage.STORAGE.isEmpty()) {
-            throw new RuntimeException("Storage is empty");
+            throw new RuntimeException("Storage is empty, can`t generate content");
         }
         String result = Storage.STORAGE.entrySet().stream()
                 .map(s -> s.getKey() + COMMA + s.getValue())
