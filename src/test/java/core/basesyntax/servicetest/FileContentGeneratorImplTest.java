@@ -1,9 +1,13 @@
-package core.basesyntax;
+package core.basesyntax.servicetest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.db.Storage;
 import core.basesyntax.service.FileContentGenerator;
 import core.basesyntax.service.impl.FileContentGeneratorImpl;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,19 +18,18 @@ public class FileContentGeneratorImplTest {
     @BeforeEach
     void testUp() {
         fileContentGenerator = new FileContentGeneratorImpl();
-        Storage.STORAGE.clear();
     }
 
     @Test
-    void storage_is_empty_error() {
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+    void storage_is_empty_error_notOK() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             fileContentGenerator.contentGen();
         });
-        Assertions.assertTrue(exception.getMessage().contains("Storage is empty"));
+        assertTrue(exception.getMessage().contains("Storage is empty"));
     }
 
     @Test
-    void how_file_content_generator_works() {
+    void how_file_content_generator_works_OK() {
         final String except = FILE_HEADER + System.lineSeparator()
                 + "banana,100" + System.lineSeparator()
                 + "orange,100" + System.lineSeparator()
@@ -36,6 +39,11 @@ public class FileContentGeneratorImplTest {
         Storage.STORAGE.put("apple", 100);
         Storage.STORAGE.put("orange", 100);
         Storage.STORAGE.put("watermelon", 200);
-        Assertions.assertEquals(fileContentGenerator.contentGen(), except);
+        assertEquals(fileContentGenerator.contentGen(), except);
+    }
+
+    @AfterEach
+    void tearDown() {
+        Storage.STORAGE.clear();
     }
 }

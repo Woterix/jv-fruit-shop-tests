@@ -7,6 +7,16 @@ public class FruitTransaction {
     private String fruit;
     private int quantity;
 
+    public FruitTransaction() {
+
+    }
+
+    public FruitTransaction(String fruit, Operation operation, int quantity) {
+        setQuantity(quantity);
+        this.fruit = fruit;
+        this.operation = operation;
+    }
+
     public Operation getOperation() {
         return operation;
     }

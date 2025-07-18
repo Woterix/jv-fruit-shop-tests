@@ -1,4 +1,8 @@
-package core.basesyntax;
+package core.basesyntax.servicetest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
@@ -13,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +38,7 @@ public class FruitDataCounterImplTest {
     }
 
     @Test
-    void how_fruit_data_counter_works() {
+    void how_fruit_data_counter_works_OK() {
         FruitTransaction first = new FruitTransaction();
         first.setOperation(FruitTransaction.Operation.fromCode("b"));
         first.setFruit("banana");
@@ -52,15 +55,15 @@ public class FruitDataCounterImplTest {
         fruitTransaction.add(second);
         fruitTransaction.add(third);
         fruitDataCounter.fruitsCounter(fruitTransaction);
-        Assertions.assertEquals(120, Storage.STORAGE.get("banana"));
-        Assertions.assertEquals(100, Storage.STORAGE.get("apple"));
+        assertEquals(120, Storage.STORAGE.get("banana"));
+        assertEquals(100, Storage.STORAGE.get("apple"));
     }
 
     @Test
-    void if_list_is_empty_error() {
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+    void if_list_is_empty_error_notOK() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             fruitDataCounter.fruitsCounter(fruitTransaction);
         });
-        Assertions.assertTrue(exception.getMessage().contains("Empty fruits list"));
+        assertTrue(exception.getMessage().contains("Empty fruits list"));
     }
 }

@@ -1,4 +1,6 @@
-package core.basesyntax;
+package core.basesyntax.servicetest;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.strategy.BalanceStrategy;
@@ -10,7 +12,6 @@ import core.basesyntax.strategy.ReturnStrategy;
 import core.basesyntax.strategy.SupplyStrategy;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,26 +30,26 @@ public class OperationStrategyImplTest {
     }
 
     @Test
-    void should_return_correct_strategy_for_balance_operation() {
-        Assertions.assertInstanceOf(BalanceStrategy.class,
+    void should_return_correct_strategy_for_balance_operation_OK() {
+        assertInstanceOf(BalanceStrategy.class,
                 operationStrategy.get(FruitTransaction.Operation.BALANCE));
     }
 
     @Test
-    void should_return_correct_strategy_for_purchase_operation() {
-        Assertions.assertInstanceOf(PurchaseStrategy.class,
+    void should_return_correct_strategy_for_purchase_operation_OK() {
+        assertInstanceOf(PurchaseStrategy.class,
                 operationStrategy.get(FruitTransaction.Operation.PURCHASE));
     }
 
     @Test
-    void should_return_correct_strategy_for_return_operation() {
-        Assertions.assertInstanceOf(ReturnStrategy.class,
+    void should_return_correct_strategy_for_return_operation_OK() {
+        assertInstanceOf(ReturnStrategy.class,
                 operationStrategy.get(FruitTransaction.Operation.RETURN));
     }
 
     @Test
-    void should_return_correct_strategy_for_supply_operation() {
-        Assertions.assertInstanceOf(SupplyStrategy.class,
+    void should_return_correct_strategy_for_supply_operation_OK() {
+        assertInstanceOf(SupplyStrategy.class,
                 operationStrategy.get(FruitTransaction.Operation.SUPPLY));
     }
 

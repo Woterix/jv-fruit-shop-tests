@@ -1,11 +1,14 @@
-package core.basesyntax;
+package core.basesyntax.servicetest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.service.FileWriterService;
 import core.basesyntax.service.impl.FileWriterServiceImpl;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,23 +20,23 @@ public class FileWriterServiceImplTest {
     @BeforeEach
     void setUp() throws IOException {
         fileWriterService = new FileWriterServiceImpl();
-        path = Files.createTempFile("testoutput", ".csv");
+        path = Path.of("src/test/resourcesTest/output.csv");
         content = "abc" + "\n" + "efg";
     }
 
     @Test
-    void how_file_writer_works() throws IOException {
+    void file_writer_example_OK() throws IOException {
         fileWriterService.fileWriterCsv(path.toString(), content);
         String fileContent = Files.readString(path);
-        Assertions.assertEquals(fileContent, content);
+        assertEquals(fileContent, content);
     }
 
     @Test
-    void fake_path_expect_exception() {
+    void fake_path_expect_exception_notOK() {
         String fakePath = "faketaph.csv";
-        RuntimeException runtimeException = Assertions.assertThrows(RuntimeException.class, () -> {
+        RuntimeException runtimeException = assertThrows(RuntimeException.class, () -> {
             fileWriterService.fileWriterCsv(fakePath, content);
         });
-        Assertions.assertTrue(runtimeException.getMessage().contains("Can`t write data to file: "));
+        assertTrue(runtimeException.getMessage().contains("Can`t write data to file: "));
     }
 }

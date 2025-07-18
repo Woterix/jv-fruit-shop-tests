@@ -1,9 +1,13 @@
-package core.basesyntax;
+package core.basesyntax.servicetest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import core.basesyntax.db.Storage;
 import core.basesyntax.service.ReportGenerator;
 import core.basesyntax.service.impl.ReportGeneratorImpl;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,19 +18,18 @@ public class ReportGeneratorImplTest {
     @BeforeEach
     void testUp() {
         reportGenerator = new ReportGeneratorImpl();
-        Storage.STORAGE.clear();
     }
 
     @Test
-    void storage_is_empty_error() {
-        RuntimeException exception = Assertions.assertThrows(RuntimeException.class, () -> {
+    void storage_is_empty_error_notOK() {
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
             reportGenerator.reportGenerate();
         });
-        Assertions.assertTrue(exception.getMessage().contains("Storage is empty"));
+        assertTrue(exception.getMessage().contains("Storage is empty"));
     }
 
     @Test
-    void how_report_generator_works() {
+    void report_generator_example() {
         final String except = FILE_HEADER + System.lineSeparator()
                 + "banana,100" + System.lineSeparator()
                 + "orange,100" + System.lineSeparator()
@@ -36,6 +39,11 @@ public class ReportGeneratorImplTest {
         Storage.STORAGE.put("apple", 100);
         Storage.STORAGE.put("orange", 100);
         Storage.STORAGE.put("watermelon", 200);
-        Assertions.assertEquals(reportGenerator.reportGenerate(), except);
+        assertEquals(reportGenerator.reportGenerate(), except);
+    }
+
+    @AfterEach
+    void tearDown() {
+        Storage.STORAGE.clear();
     }
 }
